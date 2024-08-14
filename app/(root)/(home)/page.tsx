@@ -7,12 +7,11 @@ import Link from "next/link";
 import React from "react";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/shared/cards/QuestionCard";
-import { get } from "http";
+
 import { getQuestions } from "@/lib/actions/question.action";
 
 export default async function Home() {
   const result = await getQuestions({});
-  // Ensure createdAt is a string
 
   console.log(result.questions);
   return (
@@ -45,8 +44,8 @@ export default async function Home() {
         {result.questions.length > 0 ? (
           result.questions.map((question) => (
             <QuestionCard
-              key={question._id}
-              _id={question._id}
+              key={`${question._id}`}
+              _id={`${question._id}`}
               title={question.title}
               tags={question.tags}
               author={question.author}
