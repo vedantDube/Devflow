@@ -6,13 +6,12 @@ import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 import React from "react";
 import NoResult from "@/components/shared/NoResult";
-import QuestionCard from "@/components/shared/cards/QuestionCard";
-import { get } from "http";
+import QuestionCard from "@/components/cards/QuestionCard";
+
 import { getQuestions } from "@/lib/actions/question.action";
 
 export default async function Home() {
   const result = await getQuestions({});
-  // Ensure createdAt is a string
 
   console.log(result.questions);
   return (

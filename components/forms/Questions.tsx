@@ -107,7 +107,7 @@ const Questions = ({ mongoUserId }: Props) => {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Input
-                  className="no-focus paragraph-regular  light-border-2 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus paragraph-regular background-light900_dark300  light-border-2 text-dark300_light700 min-h-[56px] border"
                   placeholder="explanation...."
                   {...field}
                 />
@@ -192,7 +192,7 @@ const Questions = ({ mongoUserId }: Props) => {
                 <>
                   <Input
                     disabled={type === "Edit"}
-                    className="no-focus paragraph-regular background-light700_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                    className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                     placeholder="tags...."
                     onKeyDown={(e) => handleInputKeyDown(e, field)}
                   />
@@ -209,15 +209,14 @@ const Questions = ({ mongoUserId }: Props) => {
                           }
                         >
                           {tag}
-                          {type === "Edit" && (
-                            <Image
-                              src="/assets/icons/close.svg"
-                              alt="close"
-                              width={16}
-                              height={16}
-                              className="cursor-pointer object-contain invert-0 dark:invert"
-                            />
-                          )}
+
+                          <Image
+                            src="/assets/icons/close.svg"
+                            alt="close"
+                            width={16}
+                            height={16}
+                            className="cursor-pointer object-contain invert-0 dark:invert"
+                          />
                         </Badge>
                       ))}
                     </div>
