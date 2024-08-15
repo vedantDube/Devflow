@@ -131,7 +131,7 @@ const Questions = ({ mongoUserId }: Props) => {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Editor
-                  tinymceScriptSrc="/tinymce/tinymce.min.js"
+                  tinymceScriptSrc="../pubilc/tinymce/tinymce.min.js"
                   licenseKey="gpl"
                   //  @ts-ignore
                   onInit={(_evt, editor) => (editorRef.current = editor)}
