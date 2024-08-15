@@ -213,8 +213,8 @@ const Questions = ({ mongoUserId }: Props) => {
                           <Image
                             src="/assets/icons/close.svg"
                             alt="close"
-                            width={16}
-                            height={16}
+                            width={12}
+                            height={12}
                             className="cursor-pointer object-contain invert-0 dark:invert"
                           />
                         </Badge>
