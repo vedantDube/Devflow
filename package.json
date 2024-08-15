@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "preview": "next start",
-    "postinstall": "node ./postinstall.js"
+    "preview": "next start"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.12",
