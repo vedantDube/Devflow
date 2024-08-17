@@ -1,7 +1,6 @@
 import { getTopInteractedTags } from "@/lib/actions/tag.actions";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { Badge } from "../ui/badge";
 import RenderTags from "../shared/RenderTags";
 
@@ -14,15 +13,16 @@ interface Props {
     username: string;
   };
 }
+
 const UserCard = async ({ user }: Props) => {
   const interactedTags = await getTopInteractedTags({ userId: user._id });
+
   return (
     <Link
       href={`/profile/${user.clerkId}`}
       className="shadow-light100_darknone w-full max-xs:min-w-full xs:w-[260px]"
     >
-      <a></a>
-      <article className="background-light900-dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8">
+      <article className="background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8">
         <Image
           src={user.picture}
           alt="user profile picture"
@@ -39,6 +39,7 @@ const UserCard = async ({ user }: Props) => {
             @{user.username}
           </p>
         </div>
+
         <div className="mt-5">
           {interactedTags.length > 0 ? (
             <div className="flex items-center gap-2">
