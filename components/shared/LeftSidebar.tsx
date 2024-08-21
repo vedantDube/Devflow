@@ -45,7 +45,9 @@ const LeftSidebar = () => {
                 className={`${isActive ? "" : "invert-colors"}`}
               />
               <p
-                className={`${isActive ? "base-bold" : "base-medium"} max-lg:hidden`}
+                className={`${
+                  isActive ? "base-bold" : "base-medium"
+                } max-lg:hidden`}
               >
                 {item.label}
               </p>
