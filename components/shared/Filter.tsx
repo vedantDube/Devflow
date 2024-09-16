@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import {
   Select,
   SelectTrigger,
@@ -27,7 +27,7 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
   const handleUpdateParams = (value: string) => {
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
-      key: "filters",
+      key: "filter",
       value,
     });
     router.push(newUrl, { scroll: false });
@@ -35,7 +35,7 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
   return (
     <div className={`relative ${containerClasses}`}>
       <Select
-        onValueChange={(value) => handleUpdateParams(value)}
+        onValueChange={handleUpdateParams}
         defaultValue={paramFilter || undefined}
       >
         <SelectTrigger
