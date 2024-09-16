@@ -7,13 +7,15 @@ import Link from "next/link";
 import React from "react";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
-
 import { getQuestions } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
 
-export default async function Home() {
-  const result = await getQuestions({});
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  });
 
-  console.log(result.questions);
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -44,8 +46,8 @@ export default async function Home() {
         {result.questions.length > 0 ? (
           result.questions.map((question) => (
             <QuestionCard
-              key={`${question._id}`}
-              _id={`${question._id}`}
+              key={question._id}
+              _id={question._id}
               title={question.title}
               tags={question.tags}
               author={question.author}

@@ -32,6 +32,7 @@
     "mongoose": "^8.5.3",
     "next": "^14.2.5",
     "prismjs": "^1.29.0",
+    "query-string": "^9.1.0",
     "svix": "^1.29.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",

@@ -15,7 +15,7 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     connectToDatabase();
 
-    const { userId, limit = 3 } = params;
+    const { userId } = params;
     const user = await User.findById(userId);
 
     if (!user) {
@@ -31,7 +31,13 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
-    const tags = await Tag.find({});
+    const { searchQuery } = params;
+    const query: FilterQuery<typeof Tag> = {};
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+    }
+    const tags = await Tag.find(query);
     return { tags };
   } catch (error) {
     console.error(error);
@@ -57,7 +63,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
       options: {
         sort: { createdAt: -1 },
         skip: skipAmount,
-        limit: pageSize + 1, // +1 to check if there is next page
+        limit: pageSize + 1,
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
@@ -76,6 +82,22 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
     return { tagTitle: tag.name, questions, isNext };
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+}
+
+export async function getPopularTags() {
+  try {
+    connectToDatabase();
+    const popularTags = await Tag.aggregate([
+      { $project: { name: 1, numberofQuestions: { $size: "$questions" } } },
+      { $sort: { numberofQuestions: -1 } },
+      { $limit: 5 },
+    ]);
+
+    return popularTags;
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }
