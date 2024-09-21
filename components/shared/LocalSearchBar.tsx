@@ -1,9 +1,9 @@
 "use client";
+
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 interface CustomInputProps {
@@ -13,7 +13,8 @@ interface CustomInputProps {
   placeholder: string;
   otherClasses?: string;
 }
-const LocalSearchBar = ({
+
+const LocalSearchbar = ({
   route,
   iconPosition,
   imgSrc,
@@ -36,17 +37,21 @@ const LocalSearchBar = ({
           key: "q",
           value: search,
         });
-        router.push(newUrl, { scroll: true });
+
+        router.push(newUrl, { scroll: false });
       } else {
-        if (pathname == route) {
+        console.log(route, pathname);
+        if (pathname === route) {
           const newUrl = removeKeysFromQuery({
             params: searchParams.toString(),
             keyToRemove: ["q"],
           });
-          router.push(newUrl, { scroll: true });
+
+          router.push(newUrl, { scroll: false });
         }
       }
     }, 300);
+
     return () => clearTimeout(delayDebounceFn);
   }, [search, route, pathname, router, searchParams, query]);
 
@@ -69,7 +74,7 @@ const LocalSearchBar = ({
         placeholder={placeholder}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="paragraph-regular no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none dark:text-light-900 "
+        className="paragraph-regular no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
       />
 
       {iconPosition === "right" && (
@@ -85,4 +90,4 @@ const LocalSearchBar = ({
   );
 };
 
-export default LocalSearchBar;
+export default LocalSearchbar;

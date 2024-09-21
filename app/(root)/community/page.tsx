@@ -1,5 +1,5 @@
 import Filter from "@/components/shared/Filter";
-// import Pagination from "@/components/shared/Pagination";
+import Pagination from "@/components/shared/Pagination";
 import LocalSearchBar from "@/components/shared/LocalSearchBar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
@@ -53,12 +53,12 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         )}
       </section>
 
-      {/* <div className="mt-10">
+      <div className="mt-10">
         <Pagination
           pageNumber={searchParams?.page ? +searchParams.page : 1}
           isNext={result.isNext}
         />
-      </div> */}
+      </div>
     </>
   );
 };

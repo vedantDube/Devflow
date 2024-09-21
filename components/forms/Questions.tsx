@@ -28,7 +28,7 @@ interface Props {
   questionDetails?: string;
 }
 
-const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
+const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const { mode } = useTheme();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,6 +40,7 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
 
   const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name);
 
+  // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -49,6 +50,7 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
     },
   });
 
+  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
 
@@ -130,8 +132,7 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Input
-                  className="no-focus paragraph-regular background-light900_dark300  light-border-2 text-dark300_light700 min-h-[56px] border"
-                  placeholder="explanation...."
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />
               </FormControl>
@@ -156,8 +157,10 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
                 <Editor
                   tinymceScriptSrc="/tinymce/tinymce.min.js"
                   licenseKey="gpl"
-                  //  @ts-ignore
-                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  onInit={(evt, editor) => {
+                    // @ts-ignore
+                    editorRef.current = editor;
+                  }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue={parsedQuestionDetails?.content || ""}
@@ -175,31 +178,25 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
                       "anchor",
                       "searchreplace",
                       "visualblocks",
-                      "code",
                       "codesample",
                       "fullscreen",
                       "insertdatetime",
                       "media",
                       "table",
-                      "preview",
-                      "help",
-                      "wordcount",
                     ],
                     toolbar:
-                      "undo redo | blocks | " +
-                      "code|codesample|bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
-                    content_style:
-                      "body { font-family:Helvetica,Inter; font-size:16px }",
+                      "undo redo | " +
+                      "codesample | bold italic forecolor | alignleft aligncenter |" +
+                      "alignright alignjustify | bullist numlist",
+                    content_style: "body { font-family:Inter; font-size:16px }",
                     skin: mode === "dark" ? "oxide-dark" : "oxide",
-                    content_css: mode === "dark" ? "dark" : "default",
+                    content_css: mode === "dark" ? "dark" : "light",
                   }}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Be specific and imagine you&apos;re asking a question to another
-                person.
+                Introduce the problem and expand on what you put in the title.
+                Minimum 20 characters.
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -274,4 +271,4 @@ const Questions = ({ type, mongoUserId, questionDetails }: Props) => {
   );
 };
 
-export default Questions;
+export default Question;

@@ -67,11 +67,11 @@ const AnswerCard = ({
 
         <div className="flex-center gap-3">
           <Metric
+            href="/"
             imgUrl="/assets/icons/like.svg"
             alt="like icon"
             value={formatAndDivideNumber(upvotes)}
             title=" Votes"
-            href="#"
             textStyles="small-medium text-dark400_light800"
           />
         </div>

@@ -92,7 +92,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDatabase();
 
-    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
+    const { searchQuery, filter, page = 1, pageSize = 5 } = params;
     const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof User> = {};
@@ -107,7 +107,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
         { username: { $regex: new RegExp(escapedSearchQuery, "i") } },
       ];
     }
-    console.log("Filter:", filter);
+
     let sortOptions = {};
 
     switch (filter) {
@@ -124,14 +124,12 @@ export async function getAllUsers(params: GetAllUsersParams) {
       default:
         break;
     }
-    console.log("Sort Options:", sortOptions);
 
     const users = await User.find(query)
       .sort(sortOptions)
       .skip(skipAmount)
       .limit(pageSize);
 
-    console.log("Users:", users);
     const totalUsers = await User.countDocuments(query);
     const isNext = totalUsers > skipAmount + users.length;
 
@@ -157,14 +155,12 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
     const isQuestionSaved = user.saved.includes(questionId);
 
     if (isQuestionSaved) {
-      // remove question from saved
       await User.findByIdAndUpdate(
         userId,
         { $pull: { saved: questionId } },
         { new: true }
       );
     } else {
-      // add question to saved
       await User.findByIdAndUpdate(
         userId,
         { $addToSet: { saved: questionId } },
