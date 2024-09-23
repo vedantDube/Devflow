@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 
 const GlobalSearch = () => {
   const [searchValue, setSearchValue] = useState("");
+  useEffect(() => {}, []);
 
   return (
     <div className="relative w-full max-w-[600px] max-lg:hidden">
