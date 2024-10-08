@@ -6,7 +6,8 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+
+import UserCard from "@/components/cards/UserCard";
 
 export const metadata: Metadata = {
   title: "Community | Dev Overflow",
@@ -18,9 +19,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-  const UserCard = dynamic(() => import("@/components/cards/UserCard"), {
-    ssr: false,
-  });
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>
