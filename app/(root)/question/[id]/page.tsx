@@ -10,10 +10,13 @@ import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth();
+
+  if (!clerkId) redirect("/sign-in");
 
   let mongoUser;
 

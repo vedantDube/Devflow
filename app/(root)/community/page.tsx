@@ -8,6 +8,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import UserCard from "@/components/cards/UserCard";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Community | Dev Overflow",
@@ -19,6 +21,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+  const { userId } = auth();
+
+  if (!userId) redirect("/sign-in");
 
   return (
     <>

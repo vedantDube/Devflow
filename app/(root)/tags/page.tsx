@@ -6,6 +6,8 @@ import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.actions";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllTags({
@@ -13,6 +15,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+  const { userId } = auth();
+
+  if (!userId) redirect("/sign-in");
 
   return (
     <>
