@@ -12,7 +12,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Community | Dev Overflow",
+  title: "Community | DevFlow",
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
