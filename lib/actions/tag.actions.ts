@@ -28,7 +28,6 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
       { _id: "1", name: "" },
       { _id: "2", name: "" },
       { _id: "3", name: "" },
-      ,
     ];
   } catch (error) {
     console.log(error);
